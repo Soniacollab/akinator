@@ -1,0 +1,11 @@
+
+<body class="homepage">
+   
+  <h1 class="title">Akinator</h1>
+<?php if(!empty($_SESSION)): ?>
+<a href="quizz.php"><button class="start">Commencez le quizz</button></a>
+    <?php else : ?>
+        <a href="login.php"><button class="start">Connectez-vous</button></a>
+<?php endif;?>
+    
+</body>

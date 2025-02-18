@@ -1,0 +1,22 @@
+  <h1>Classement</h1>
+
+    <?php if (isset($error)): ?>
+        <p class="error"><?php echo $error; ?></p>
+    <?php else: ?>
+        <ul class="leaderboard">
+            <?php if ($firstPlace): ?>
+                <li>1er : <?php echo $firstPlace['username'] . " : " . $firstPlace['nb'] . " tâches complétées."; ?></li>
+            <?php endif; ?>
+            <?php if ($secondPlace): ?>
+                <li>2ème : <?php echo $secondPlace['username'] . " : " . $secondPlace['nb'] . " tâches complétées."; ?></li>
+            <?php endif; ?>
+            <?php if ($thirdPlace): ?>
+                <li>3ème : <?php echo $thirdPlace['username'] . " : " . $thirdPlace['nb'] . " tâches complétées."; ?></li>
+            <?php endif; ?>
+            <?php foreach ($restLeaderboard as $classement): ?>
+                <li><?php echo $classement['username'] . " : " . $classement['nb'] . " tâches complétées."; ?></li>
+            <?php endforeach; ?>
+        </ul>
+    <?php endif; ?>
+
+    <a href="userAccount.php">Retour à mon compte</a>

@@ -1,0 +1,46 @@
+<?php
+// Démarre la session seulement si elle n'est pas déjà active
+if (session_status() == PHP_SESSION_NONE) {
+    session_start(); // Démarre la session uniquement si elle n'est pas déjà active
+}
+?>
+
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" href="assets/css/style.css" type="text/css" />
+</head>
+
+
+<body>
+
+
+    <header>
+   
+        <a href="index.php">Accueil</a>
+            <?php if(!empty($_SESSION)): ?>
+             <div class="left">
+             <a href="userAccount.php">Mon compte</a>
+             <a href="logout.php">Déconnexion</a>
+            </div>
+            <?php else : ?>
+            <div class="left">
+             <a href="login.php">Connexion</a>
+            <a href="register.php">Inscription</a>
+            </div>
+            <?php endif;?>
+   
+    </header>
+
+    
+    <main>
+        
+        <?php include "$template.phtml" ?>
+        
+    </main>
+    
+    
+</body>
+</html>
