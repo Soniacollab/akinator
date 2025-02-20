@@ -7,7 +7,8 @@ session_start();
 
 // Vérifier si l'ID du résultat via l'URL
 if (isset($_GET['result_id'])) {
-     $date = date('Y-m-d H');  // La date actuelle en UTC (ou Europe/Paris selon la configuration)
+     $date = date('Y-m-d');  // La date actuelle en UTC 
+     
     $resultId = $_GET['result_id'];
     
     // Appel à la fonction pour récupérer le résultat
@@ -27,7 +28,10 @@ if (!$result) {
     $error = "Aucun résultat trouvé.";
 }
 
+// Formater la date pour l'affichage (20/02/2025)
 
+
+$pageTitle = "Résultat";
 $template = "resultat";
 include 'layout.phtml';
 

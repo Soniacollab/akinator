@@ -39,6 +39,6 @@ if(!empty($_POST)){
         
 }
 
-
+$pageTitle = "Inscription";
 $template = "register";
 include "layout.phtml";

@@ -1,14 +1,15 @@
-
-    <div class="container">
-        
+<main class="container-result">
+ 
+        <div class="result">
         <?php if (isset($result)): ?>
-            <div class="result">
-                <h2>Résultat: <?= htmlspecialchars($result["name"]) ?></h2>
+            
+                <h2>Après un voyage dans les mystères de ton esprit, le film est <span> <?= htmlspecialchars($result["name"]) ?></span></h2>
                 <img class="image" src="assets/<?= $result['visuel']?>" alt=" Image de <?= $result["name"] ?>">
-                <p><?= nl2br(htmlspecialchars($result["description"])) ?></p>
-            </div>
+                <p><?= htmlspecialchars($result["description"]) ?></p>
+           
         <?php endif; ?>
+         </div>
         <!--C'est à dire rediriger l'utilisateur vers la page quizz ou la question_id = 1 (la première question)-->
-        <a href="quizz.php?question_id=1" class="btn">Recommencer le quiz</a>
-    </div>
-
+        <a href="quizz.php?question_id=1" class="delete">Recommencer le quiz</a>
+   
+</main>

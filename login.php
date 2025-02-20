@@ -47,6 +47,6 @@ if(isset($_SESSION['user'])){
     exit;
 }
 
-
+$pageTitle = "Connexion";
 $template = "login";
 include "layout.phtml";

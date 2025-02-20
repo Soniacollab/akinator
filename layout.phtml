@@ -9,7 +9,9 @@ if (session_status() == PHP_SESSION_NONE) {
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Document</title>
+     <title>
+        <?= isset($pageTitle) ? $pageTitle : 'Akinator'; ?>
+    </title>
     <link rel="stylesheet" href="assets/css/style.css" type="text/css" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -45,6 +47,8 @@ if (session_status() == PHP_SESSION_NONE) {
         
     </main>
     
-    
+    <footer class="site-footer">
+    <p>&copy; 2025 Akinator. Tous droits réservés.</p>
+</footer>
 </body>
 </html>

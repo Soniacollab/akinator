@@ -1,13 +1,11 @@
 <main class="mainc">
-    
-<!--<h1>Welcome, <?= htmlspecialchars($_SESSION['username']) ?> !</h1>-->
-
-    <h1>Historique des parties</h1>
+<h1 class="h1">Bienvenue <?= htmlspecialchars($_SESSION['username']) ?> !</h1>
+    <h1 class="h11">Historique des parties</h1>
     <?php if(!empty($gameData)): ?>
        <?php foreach($gameData as $data): ?>
            <div class="flex-resultat">
-           <p><?= $data['result_name'] ?></p>
-           <p><?= $data['date'] ?></p>
+               <p>Le <?= date('d/m/Y', strtotime($data['date'])); ?></p>
+               <p><?= $data['result_name'] ?></p>
            </div>
          <?php endforeach; ?>
          <a class="delete" href="deleteResult.php">Supprimez l'historique</a>
@@ -18,7 +16,7 @@
    <br>
    
 <h2>Changer mon mot de passe</h2>
-<p>Votre mot de passe doit contenir entre 8 et 16 lettres, avec au moins une majuscule, 1 chiffre et 1 caractère spécial</p>
+<p>Votre mot de passe doit contenir entre 8 et 16 lettres, avec au moins une majuscule, 1 chiffre et 1 caractère spécial.</p>
     
 <form class="contact-form" action="#" method="POST">
     

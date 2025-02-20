@@ -31,7 +31,12 @@ if(!empty($_POST)) {
         
        //si l'utilisateur a saisi les bons identifiants et mots de passe
         if(password_verify($_POST["current_password"],$user["password"])){
-           
+            
+            // Vérifier si le nouveau mot de passe est différent de l'ancien
+            if ($_POST["current_password"] === $_POST["new_password"]) {
+                throw new Exception("Le nouveau mot de passe ne peut pas être identique à l'ancien.");
+            }
+            
            if(preg_match($regex, $_POST["new_password"])){
                
                //Hacher le nouveau mot de passe
@@ -73,8 +78,8 @@ if (isset($_POST['delete_account'])) {
     
     // Si la suppression a réussi, déconnecter l'utilisateur et rediriger vers la page de connexion
     if ($result) {
-        session_destroy(); // Supprimer la session
-        header("Location: login.php"); // Rediriger vers la page de connexion
+        session_destroy();
+        header("Location: login.php"); 
         exit();
     } else {
         echo "Erreur lors de la suppression du compte. Veuillez réessayer.";
@@ -89,7 +94,8 @@ if (isset($_POST['delete_account'])) {
 
 // Si la session de l'utilisateur existe déja, le rediriger directement vers son compte
 if(isset($_SESSION['user'])){
-
+    
+    $pageTitle = "Mon compte";
     $template = "userAccount";
     include "layout.phtml";
     

@@ -40,10 +40,10 @@ function insertData(string $username, string $email, string $password): array|bo
     $pdo = getConnexion();
     
     
-    $query = $pdo->prepare("INSERT INTO users (username, email, password, registration_date) VALUES (?, ?, ?, ?)");
+    $query = $pdo->prepare("INSERT INTO users (username, email, password) VALUES (?, ?, ?)");
     
     // Exécuter la requête
-    $query->execute([$username, $email, $password, $date]);
+    $query->execute([$username, $email, $password]);
     
     // Récupérer les données de l'utilisateur
     $newData = $query->fetch();

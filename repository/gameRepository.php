@@ -11,10 +11,8 @@ function createGame( string $date, int $user_id, int $result_id): array|bool
     
     $pdo = getConnexion();
     
+    
     // Préparer la requête pour créer une nouvelle partie
-    
-   
-    
     $query = $pdo->prepare("INSERT INTO game (date, user_id, result_id) VALUES (?, ?, ?)");
     
     // Exécuter la requête
@@ -24,6 +22,7 @@ function createGame( string $date, int $user_id, int $result_id): array|bool
 
 function getResultsByUserId(int $user_id): array|bool {
     $pdo = getConnexion();
+    
     
     // Requête pour récupérer les jeux et leurs résultats associés
     $query = $pdo->prepare("

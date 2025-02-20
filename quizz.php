@@ -76,7 +76,8 @@ if (!empty($_POST)) {
 
 // Si la session de l'utilisateur existe déja, le rediriger directement vers son compte
 if(isset($_SESSION['user'])){
-
+    
+    $pageTitle = "Quizz";
     $template = "quizz";
     include "layout.phtml";
     
