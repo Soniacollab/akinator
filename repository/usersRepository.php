@@ -50,7 +50,7 @@ function getUserByEmail(string $email): array|bool
 //         return $newData;
 // }
 
-function insertData($username, $email, $password): array|bool
+function insertData(string $username, string $email, string $password): array|bool
 {
     $user = getUserByEmail($email);
     if ($user) {
@@ -101,4 +101,11 @@ function deleteUserById(int $id): bool
     
 }
 
-
+function updatePasswordById(string $password, int $id) : bool{
+    $pdo = getConnexion();
+    
+    $query = $pdo->prepare("UPDATE users SET password = ? WHERE id = ? ");
+    
+    return $query->execute([$password, $id]);
+    
+}

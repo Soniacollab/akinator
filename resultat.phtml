@@ -1,0 +1,13 @@
+
+    <div class="container">
+        
+        <?php if (isset($result)): ?>
+            <div class="result">
+                <h2>Résultat: <?= htmlspecialchars($result["name"]) ?></h2>
+                <img class="image" src="assets/<?= $result['visuel']?>" alt=" Image de <?= $result["name"] ?>">
+                <p><?= nl2br(htmlspecialchars($result["description"])) ?></p>
+            </div>
+        <?php endif; ?>
+        <a href="quizz.php?question_id=1" class="btn">Recommencer le quiz</a>
+    </div>
+

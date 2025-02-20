@@ -2,8 +2,11 @@
 
 include_once "config/database.php";
 include_once "repository/usersRepository.php";
+include_once "repository/questionsRepository.php";
+include_once "repository/gameRepository.php";
+include_once "repository/resultsRepository.php";
 
-//démarrage du système de session
+
 session_start();
 
 
@@ -40,6 +43,11 @@ if (!$user) {
     exit();
 }
 
+$gameData = getResultsByUserId($_SESSION['user_id']);
+
+
+
+
 date_default_timezone_set('Europe/Paris');
 
 // Récupérer la date d'inscription de l'utilisateur
@@ -50,9 +58,53 @@ $date = new DateTime($user['registration_date'], new DateTimeZone('UTC'));
 $date->setTimezone(new DateTimeZone('Europe/Paris'));
 
 // Afficher la date ajustée
-$registration_date = $date->format('d/m/Y à H:i');
+$date = $date->format('d/m/Y à H:i');
 
 
+
+
+
+
+// Vérifier si le formulaire a été soumis
+if(!empty($_POST)) {
+    
+    $user = getUserById($_SESSION['user_id']);
+    $regex = "/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/";
+    
+    try{
+       
+         //si l'utilisateur a saisi les bons identifiants et mots de passe
+    if(password_verify($_POST["current_password"],$user["password"])){
+        
+        if(preg_match($regex, $_POST["new_password"])){
+         
+        
+        //Hacher le nouveau mot de passe
+        $newpassword  = password_hash($_POST["new_password"], PASSWORD_DEFAULT);
+        
+         updatePasswordById($newpassword, $_SESSION['user_id']);
+        
+         session_destroy();
+
+header("Location: login.php");
+exit;
+      
+    
+    }else {
+                throw new Exception("Le nouveau mot de passe ne respecte pas les critères de sécurité.");
+        }
+        
+    } 
+    else{
+        
+         throw new Exception("Identifiant ou mot de passe incorrect");
+        }
+        
+   
+    }catch(Throwable $e){
+            $error = $e->getMessage();
+        }
+}
 
 
 

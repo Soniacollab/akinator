@@ -1,10 +1,24 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Document</title>
-</head>
-<body>
+
+<h1>Quiz Akinator</h1>
+<main class="container">
     
-</body>
-</html>
+<div class="result">
+    <?php if ($result): ?>
+        <h2 class="h2">Résultat : <?= htmlspecialchars($result['name']); ?></h2>
+        <p><?= htmlspecialchars($result['description']); ?></p>
+        <img src="<?= htmlspecialchars($result['visuel']); ?>" alt="Image du résultat">
+    <?php elseif ($currentQuestion): ?>
+      
+        <p class="p"><?= htmlspecialchars($currentQuestion['name']); ?></p>
+        <form method="POST" action="">
+            <button type="submit" name="answer" value="Oui" class="btn-oui">Oui</button>
+            <br>
+            <button type="submit" name="answer" value="Non" class="btn-non">Non</button>
+        </form>
+
+
+    <?php else: ?>
+        <p>Aucune question disponible.</p>
+    <?php endif; ?>
+</div>
+</main>

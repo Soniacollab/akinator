@@ -43,8 +43,8 @@ if(!empty($_POST)){
    
 
 if(isset($_SESSION['user'])){
-      header("Location: userAccount.php");
-        exit;
+    header("Location: userAccount.php");
+    exit;
 }
 
 
