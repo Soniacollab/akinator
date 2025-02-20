@@ -2,8 +2,10 @@
 
 require_once "config/database.php";
 
+date_default_timezone_set('Europe/Paris');
+
 // Fonction pour créer une nouvelle partie
-function createGame(int $user_id, int $result_id): array|bool
+function createGame( string $date, int $user_id, int $result_id): array|bool
 {
     
     
@@ -11,12 +13,12 @@ function createGame(int $user_id, int $result_id): array|bool
     
     // Préparer la requête pour créer une nouvelle partie
     
-    $date = date('Y-m-d H:i:s');  // La date actuelle en UTC (ou Europe/Paris selon la configuration)
+   
     
-    $query = $pdo->prepare("INSERT INTO game (user_id, result_id) VALUES (?, ?)");
+    $query = $pdo->prepare("INSERT INTO game (date, user_id, result_id) VALUES (?, ?, ?)");
     
     // Exécuter la requête
-    return $query->execute([$user_id, $result_id]);
+    return $query->execute([$date, $user_id, $result_id]);
     
 }
 

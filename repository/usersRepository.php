@@ -30,26 +30,6 @@ function getUserByEmail(string $email): array|bool
         return $user;
 }
 
-// function insertData($username,$email,$password): array|bool
-// {
-// $user = getUserByEmail($email);
-//     if ($user) {
-//         throw new Exception("Cet email est déjà utilisé.");
-//     }
-//         $pdo = getConnexion();
-        
-//         //préparation de la requête
-//         $query = $pdo->prepare("INSERT INTO users (username,email ,  password) VALUES (?, ?, ?)");
-        
-//         //exécution de la requête
-//         $query->execute([$username,$email,$password]);
-        
-//         //récupération des données
-//         $newData = $query->fetch();
-        
-//         return $newData;
-// }
-
 function insertData(string $username, string $email, string $password): array|bool
 {
     $user = getUserByEmail($email);
@@ -59,8 +39,7 @@ function insertData(string $username, string $email, string $password): array|bo
 
     $pdo = getConnexion();
     
-    // Préparer la requête pour insérer un nouvel utilisateur
-    $date = date('Y-m-d H:i:s');  // La date actuelle en UTC (ou Europe/Paris selon la configuration)
+    
     $query = $pdo->prepare("INSERT INTO users (username, email, password, registration_date) VALUES (?, ?, ?, ?)");
     
     // Exécuter la requête

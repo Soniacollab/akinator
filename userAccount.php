@@ -9,65 +9,14 @@ include_once "repository/questionsRepository.php";
 include_once "repository/gameRepository.php";
 include_once "repository/resultsRepository.php";
 
-
-
-
-// Vérifier si la session existe
-if (!isset($_SESSION['user_id'])) {
-    header("Location: login.php");
-    exit();
-}
-
-
-// Supprimer l'utilisateur si le formulaire de suppression est soumis
-if (isset($_POST['delete_account'])) {
-    $id = $_SESSION['user_id'];
-    
-    // Appeler la fonction pour supprimer l'utilisateur
-    $result = deleteUserById($id);
-    
-    // Si la suppression a réussi, déconnecter l'utilisateur et rediriger vers la page de connexion
-    if ($result) {
-        session_destroy(); // Supprimer la session
-        header("Location: login.php"); // Rediriger vers la page de connexion
-        exit();
-    } else {
-        echo "Erreur lors de la suppression du compte. Veuillez réessayer.";
-    }
-}
-
-
 // Récupérer les données de l'utilisateur par son ID
 $user = getUserById($_SESSION['user_id']); 
 
-// Si l'utilisateur n'existe pas
-if (!$user) {
-    header("Location: login.php");
-    exit();
-}
 
-
-// Gestion de temps
 // Récupérer les résultats de l'utilisateur
 $gameData = getResultsByUserId($_SESSION['user_id']);
 
-date_default_timezone_set('Europe/Paris');
 
-// Gestion de temps
-foreach($gameData as $data){
-
-// Récupérer la date d'inscription de l'utilisateur
-// Créer un objet DateTime à partir de l'heure UTC stockée
-$resultDate = new DateTime($data['date'], new DateTimeZone('UTC'));
-
-// Convertir l'heure à Paris (Europe/Paris)
-$resultDate->setTimezone(new DateTimeZone('Europe/Paris'));
-
-// Afficher la date ajustée
-$ajustedDate = $resultDate->format('d/m/Y à H:i');
-}
-
-var_dump($gameData);
 
 
 // Vérifier si le formulaire a été soumis
@@ -110,6 +59,31 @@ if(!empty($_POST)) {
             $error = $e->getMessage();
         }
 }
+
+
+
+
+
+// Supprimer l'utilisateur si le formulaire de suppression est soumis
+if (isset($_POST['delete_account'])) {
+    $id = $_SESSION['user_id'];
+    
+    // Appeler la fonction pour supprimer l'utilisateur
+    $result = deleteUserById($id);
+    
+    // Si la suppression a réussi, déconnecter l'utilisateur et rediriger vers la page de connexion
+    if ($result) {
+        session_destroy(); // Supprimer la session
+        header("Location: login.php"); // Rediriger vers la page de connexion
+        exit();
+    } else {
+        echo "Erreur lors de la suppression du compte. Veuillez réessayer.";
+    }
+}
+
+
+
+
 
 
 

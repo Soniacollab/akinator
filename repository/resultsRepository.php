@@ -41,4 +41,15 @@ function getAllResults(): array|bool
     return $results;
 }
 
+function deleteHistoryByUserId(int $user_id): bool
+{
+    
+    
+    $pdo = getConnexion();
+    
+    $query = $pdo->prepare("DELETE FROM game WHERE user_id = ?");
+    
+    return $query->execute([$user_id]);
+}
+
 
