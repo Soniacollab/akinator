@@ -1,44 +1,46 @@
-
-
 <main class="mainc">
+    
+<!--<h1>Welcome, <?= htmlspecialchars($_SESSION['username']) ?> !</h1>-->
+
     <h1>Historique des parties</h1>
     <?php if(!empty($gameData)): ?>
-   <?php foreach($gameData as $data): ?>
-   <div class="flex-resultat">
-   <p><?= $data['result_name'] ?></p>
-   <p><?= $data['date'] ?></p>
-   </div>
-   <?php endforeach; ?>
+       <?php foreach($gameData as $data): ?>
+           <div class="flex-resultat">
+           <p><?= $data['result_name'] ?></p>
+           <p><?= $data['date'] ?></p>
+           </div>
+         <?php endforeach; ?>
    <?php else: ?>
    <p class="p">Aucune partie jouée !</p>
    <?php endif; ?>
    
+   <br>
    
-   
-    <h2>Changer mon mot de passe</h2>
-    <p>Votre mot de passe doit contenir entre 8 et 16 lettres, avec au moins une majuscule, 1 chiffre et 1 caractère spécial</p>
+<h2>Changer mon mot de passe</h2>
+<p>Votre mot de passe doit contenir entre 8 et 16 lettres, avec au moins une majuscule, 1 chiffre et 1 caractère spécial</p>
     
-      <form class="contact-form" action="#" method="POST">
-                
-         <label for="password">Mot de passe actuel</label>
-         <input type="password" id="password" name="current_password" placeholder="Entrez votre mot de passe actuel" required>
+<form class="contact-form" action="#" method="POST">
+    
+    <label for="password">Mot de passe actuel</label>
+    <input type="password" id="password" name="current_password" placeholder="Entrez votre mot de passe actuel" required>
          
-         <label for="password">Nouveau mot de passe</label>
-         <input type="password" id="password" name="new_password" placeholder="Entrez votre nouveau mot de passe" required>
+    <label for="password">Nouveau mot de passe</label>
+    <input type="password" id="password" name="new_password" placeholder="Entrez votre nouveau mot de passe" required>
          
-         <button class="start" type="submit">Modifier le mot de passe</button>
-                <br>
-            </form>
+    <button class="start" type="submit">Modifier le mot de passe</button>
+    <br>
+</form>
             
-            <?php if (isset($error)): ?>
-            <p><?= $error ?></p>
-            <?php endif; ?>
+<?php if (isset($error)): ?>
+    <p><?= $error ?></p>
+<?php endif; ?>
 
             
-    <form method="POST" action="">
-         <p>Êtes-vous sûr de vouloir supprimer votre compte ?</p>
-         <button type="submit" name="delete_account">Supprimer mon compte</button>
-    </form>
+<form method="POST" action="">
+<p>Êtes-vous sûr de vouloir supprimer votre compte ?</p>
+<button type="submit" name="delete_account">Supprimer mon compte</button>
+</form>
+
 </main>
     
 

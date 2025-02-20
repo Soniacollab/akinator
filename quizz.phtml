@@ -1,12 +1,15 @@
-
 <h1>Quiz Akinator</h1>
+
 <main class="container">
     
 <div class="result">
+    
     <?php if ($result): ?>
+    
         <h2 class="h2">Résultat : <?= htmlspecialchars($result['name']); ?></h2>
         <p><?= htmlspecialchars($result['description']); ?></p>
         <img src="<?= htmlspecialchars($result['visuel']); ?>" alt="Image du résultat">
+        
     <?php elseif ($currentQuestion): ?>
       
         <p class="p"><?= htmlspecialchars($currentQuestion['name']); ?></p>
@@ -20,5 +23,6 @@
     <?php else: ?>
         <p>Aucune question disponible.</p>
     <?php endif; ?>
+    
 </div>
 </main>

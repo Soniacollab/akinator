@@ -1,5 +1,8 @@
 <?php
 
+// Démarrer la session
+session_start();
+
 include_once "config/database.php";
 include_once "repository/usersRepository.php";
 include_once "repository/questionsRepository.php";
@@ -7,9 +10,9 @@ include_once "repository/gameRepository.php";
 include_once "repository/resultsRepository.php";
 
 
-session_start();
 
 
+// Vérifier si la session existe
 if (!isset($_SESSION['user_id'])) {
     header("Location: login.php");
     exit();
@@ -34,8 +37,8 @@ if (isset($_POST['delete_account'])) {
 }
 
 
-// Récupérer les données de l'utilisateur
-$user = getUserById($_SESSION['user_id']);  // Cette fonction doit être définie pour récupérer l'utilisateur par son ID
+// Récupérer les données de l'utilisateur par son ID
+$user = getUserById($_SESSION['user_id']); 
 
 // Si l'utilisateur n'existe pas
 if (!$user) {
@@ -43,58 +46,60 @@ if (!$user) {
     exit();
 }
 
+
+// Gestion de temps
+// Récupérer les résultats de l'utilisateur
 $gameData = getResultsByUserId($_SESSION['user_id']);
-
-
-
 
 date_default_timezone_set('Europe/Paris');
 
+// Gestion de temps
+foreach($gameData as $data){
+
 // Récupérer la date d'inscription de l'utilisateur
 // Créer un objet DateTime à partir de l'heure UTC stockée
-$date = new DateTime($user['registration_date'], new DateTimeZone('UTC'));
+$resultDate = new DateTime($data['date'], new DateTimeZone('UTC'));
 
 // Convertir l'heure à Paris (Europe/Paris)
-$date->setTimezone(new DateTimeZone('Europe/Paris'));
+$resultDate->setTimezone(new DateTimeZone('Europe/Paris'));
 
 // Afficher la date ajustée
-$date = $date->format('d/m/Y à H:i');
+$ajustedDate = $resultDate->format('d/m/Y à H:i');
+}
 
-
-
-
+var_dump($gameData);
 
 
 // Vérifier si le formulaire a été soumis
 if(!empty($_POST)) {
     
+    // Récupérer les données de l'utilisateur
     $user = getUserById($_SESSION['user_id']);
+    
     $regex = "/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/";
     
     try{
-       
-         //si l'utilisateur a saisi les bons identifiants et mots de passe
-    if(password_verify($_POST["current_password"],$user["password"])){
         
-        if(preg_match($regex, $_POST["new_password"])){
-         
-        
-        //Hacher le nouveau mot de passe
-        $newpassword  = password_hash($_POST["new_password"], PASSWORD_DEFAULT);
-        
-         updatePasswordById($newpassword, $_SESSION['user_id']);
-        
-         session_destroy();
-
-header("Location: login.php");
-exit;
-      
-    
-    }else {
+       //si l'utilisateur a saisi les bons identifiants et mots de passe
+        if(password_verify($_POST["current_password"],$user["password"])){
+           
+           if(preg_match($regex, $_POST["new_password"])){
+               
+               //Hacher le nouveau mot de passe
+               $newpassword  = password_hash($_POST["new_password"], PASSWORD_DEFAULT);
+               
+               // Remplacer le mot de passe par le nouveau saisi par l'utilisateur
+               updatePasswordById($newpassword, $_SESSION['user_id']);
+            
+              // Détruire la session et rediriger vers la page de connexion
+              session_destroy();
+              header("Location: login.php");
+              exit;
+            }else {
                 throw new Exception("Le nouveau mot de passe ne respecte pas les critères de sécurité.");
-        }
+            }
         
-    } 
+        } 
     else{
         
          throw new Exception("Identifiant ou mot de passe incorrect");
@@ -108,13 +113,14 @@ exit;
 
 
 
-
+// Si la session de l'utilisateur existe déja, le rediriger directement vers son compte
 if(isset($_SESSION['user'])){
 
     $template = "userAccount";
     include "layout.phtml";
     
 }
+// Si non on le redirige vers la page de connexion
 else{
     header("Location: login.php");
     exit;

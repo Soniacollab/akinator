@@ -12,13 +12,11 @@ if (isset($_GET['result_id'])) {
     // Appel à la fonction pour récupérer le résultat
     $result = getResultById($resultId);
     
-    // Récupérer les résultats de l'utilisateur
+    // Récupérer les résultats de l'utilisateur en temps actuel
  $gameData = createGame($_SESSION['user_id'],$resultId);
  
  
-    
-    if (!$result) {
-        
+if (!$result) {
         // Si le résultat n'existe pas, on affiche un message d'erreur
         $error = "Résultat non trouvé.";
     }

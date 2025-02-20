@@ -48,3 +48,4 @@ function deleteGameLogById(int $id, int $user_id): bool
     return $query->execute([$id, $user_id]);
 }
 
+

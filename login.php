@@ -10,14 +10,14 @@ session_start();
 //si le form a été soumis ($_POST n'est pas vide)
 if(!empty($_POST)){
     
-    
+    // Récupérer les données de l'utilisateur par l'id
     $user = getUserByEmail($_POST["email"]);
     
     try{
        
          //si l'utilisateur a saisi les bons identifiants et mots de passe
     if($user && password_verify($_POST["password"],$user["password"])){
-         var_dump($user);
+         
         
         // // //création d'une session
         $_SESSION["user_id"] = $user["id"];
