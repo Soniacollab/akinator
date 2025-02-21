@@ -9,6 +9,12 @@ include_once "repository/questionsRepository.php";
 include_once "repository/gameRepository.php";
 include_once "repository/resultsRepository.php";
 
+
+
+if (!isset($_SESSION['user_id'])) {
+    header("Location: login.php");
+    exit();
+}
 // Récupérer les données de l'utilisateur par son ID
 $user = getUserById($_SESSION['user_id']); 
 
